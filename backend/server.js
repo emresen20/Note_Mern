@@ -1,6 +1,15 @@
 const express = require('express')
+require("dotenv").config();
 
 const app=express();
+
+//middleware
+app.use((req,res,next)=>{
+    console.log(req.path,req.method);
+    next();
+
+})
+
 
 
 app.get('/',(req,res)=>{
@@ -11,6 +20,6 @@ app.get('/',(req,res)=>{
 
 
 
-app.listen(4000,()=>{
-    console.log('4000.port dinleniyor')
+app.listen(process.env.PORT,()=>{
+    console.log(`${process.env.PORT}. port dinleniyor`)
 })
