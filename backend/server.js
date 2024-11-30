@@ -1,5 +1,6 @@
 const express = require('express')
 require("dotenv").config();
+const notRoute=require('./rootes/notlar')
 
 const app=express();
 
@@ -11,12 +12,8 @@ app.use((req,res,next)=>{
 })
 
 
-
-app.get('/',(req,res)=>{
-    res.json({mesaj:"merhaba ilk"})
-})
-
-
+app.use(express.json())
+app.use('/api/notlar',notRoute)
 
 
 
