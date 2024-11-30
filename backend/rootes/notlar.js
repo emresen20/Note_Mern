@@ -1,4 +1,5 @@
 const express =require('express')
+const notModel=require('../models/noteModel')
 
 const router =express.Router();
 
@@ -14,8 +15,15 @@ router.get('/:id',(req,res)=>{
 
 
 //yeni ekle
-router.post('/',(req,res)=>{
-    res.json({msg:'yeni not ekle'})
+router.post('/', async (req,res)=>{
+    const {baslik,aciklama}=req.body
+
+    try{
+        const not =await notModel.create({baslik,aciklama})
+        res.status(200).json(not)
+    } catch(error){
+        res.status(400).json({hata:error.message})
+    }
 })
 
 
