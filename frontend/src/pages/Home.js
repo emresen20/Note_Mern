@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import NotDetay from '../components/NotDetay';
 
 export default function Home() {
     const [notlar, setNotlar] = useState([]);
@@ -27,7 +28,7 @@ export default function Home() {
         <div className="home">
             <div className="notlar">
                 {notlar.map((not) => (
-                    <p key={not._id}>{not.baslik}</p>
+                    <NotDetay key={not._id} not={not}/>
                 ))}
             </div>
         </div>
