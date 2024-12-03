@@ -1,18 +1,14 @@
 const express =require('express')
 const notModel=require('../models/noteModel');
-const { notOlustur } = require('../controllers/notController');
+const { notOlustur, notlarGetir, notGetir } = require('../controllers/notController');
 
 const router =express.Router();
 
-router.get('/',(req,res)=>{
-    res.json({msg:'Bütün Notlar'})
-})
+router.get('/',notlarGetir)
 
 
-// listele
-router.get('/:id',(req,res)=>{
-    res.json({msg:`${req.params.id} id li notu getir` })
-})
+// listele id ye göre listeleme
+router.get('/:id',notGetir)
 
 
 //yeni ekle
