@@ -1,6 +1,6 @@
 const express =require('express')
 const notModel=require('../models/noteModel');
-const { notOlustur, notlarGetir, notGetir } = require('../controllers/notController');
+const { notOlustur, notlarGetir, notGetir, notSil, notGuncelle } = require('../controllers/notController');
 
 const router =express.Router();
 
@@ -16,14 +16,10 @@ router.post('/',notOlustur )
 
 
 //sil
-router.delete('/:id',(req,res)=>{
-    res.json({msg:`${req.params.id} id li notu sil` })
-})
+router.delete('/:id',notSil)
 
 //güncelle
-router.patch('/:id',(req,res)=>{
-    res.json({msg:`${req.params.id} id li notu güncelle` })
-})
+router.patch('/:id',notGuncelle)
 
 
 module.exports=router;
