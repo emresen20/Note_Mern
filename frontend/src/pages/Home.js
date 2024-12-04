@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import NotDetay from '../components/NotDetay';
+import NotForm from '../components/NotForm';
 
 export default function Home() {
     const [notlar, setNotlar] = useState([]);
@@ -26,6 +27,10 @@ export default function Home() {
 
     return (
         <div className="home">
+            <div className='not-form'>
+                <NotForm/>
+
+            </div>
             <div className="notlar">
                 {notlar.map((not) => (
                     <NotDetay key={not._id} not={not}/>
