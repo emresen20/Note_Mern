@@ -3,11 +3,28 @@ import React, { useState } from "react";
 export default function NotForm() {
   const [baslik, setBaslik] = useState("");
   const [aciklama, setAciklama] = useState("");
+  const [hata,setHata]=useState(null)
 
-  const handleSumbit = (e) => {
+  const handleSumbit = async (e) => {
     e.preventDefault();
     const not = { baslik, aciklama };
-    console.log(not);
+    const response= await fetch('/api/notlar',{
+        method:'POST',
+        body:JSON.stringify(not),
+        headers:{
+            'Content-Type':'application/json'
+        }
+    })
+    const json =await response.json()
+    if(!response.ok){
+        setHata(json.hata)
+    }
+    if(response.ok){
+        setHata(null)
+        setBaslik('')
+        setAciklama('')
+        console.log('YEni bir not eklendi',json)
+    }
   };
 
   return (
@@ -34,6 +51,7 @@ export default function NotForm() {
         </div>
       </div>
     <button type="sumbit">Ekle</button>
+    {hata && <div className="error">{hata}</div>}
     </form>
   );
 }
