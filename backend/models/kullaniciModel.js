@@ -1,5 +1,6 @@
 const mongoose=require('mongoose')
 const bcrypt=require('bcrypt')
+const validator= require('validator')
 
 const Sema=mongoose.Schema
 
@@ -20,6 +21,18 @@ const kullaniciSema= new Sema({
 
 
 kullaniciSema.statics.signup=async function(email,parola){
+
+    if(!email || !parola){
+        throw Error('Alanlar Boş geçilemez')
+    }
+
+    if(!validator.isEmail(email)){
+        throw Error('Email Kurallara uygun değil')
+    }
+
+    if(!validator.isStrongPassword(parola)){
+        throw Error('Parola en az 1 büyük harf ve özel karakter içermeli')
+    }
 
     const kontrolKullanici=await this.findOne({email}) // burada this kullaniciSemayı temsil eder
     
