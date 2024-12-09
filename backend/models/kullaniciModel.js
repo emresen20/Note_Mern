@@ -49,4 +49,25 @@ kullaniciSema.statics.signup=async function(email,parola){
     return kullanici
 }
 
+
+kullaniciSema.statics.login=async function(email,parola){
+    if(!email || !parola){
+        throw Error('alanlar boş geçilemez')
+    }
+
+    const kullanici=await this.findOne({email})
+
+    if(!kullanici){
+        throw Error('Email bulunamadı')
+    }
+
+    const parolaKontrol=await bcrypt.compare(parola,kullanici.parola)
+
+    if(!parolaKontrol){
+        throw Error('hatalı parola')
+    }
+
+    return kullanici
+}
+
 module.exports=mongoose.model('Kullanici',kullaniciSema)

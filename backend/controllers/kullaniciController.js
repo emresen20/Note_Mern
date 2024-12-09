@@ -8,7 +8,20 @@ const tokenOlustur=(_id)=>{
 
 
 const loginKullanıcı= async(req,res)=>{
-    res.json({mesaj:'Login işlemi gerçekleştirildi'})
+    const {email,parola}=req.body;
+    
+    try {
+        const kullanici= await Kullanici.login(email,parola)
+
+        const token=tokenOlustur(kullanici._id)
+
+        res.status(200).json({email,token})
+
+    } catch (error) {
+        res.status(400).json({hata:error.message})
+        
+    }
+
 }
 
 const signupKullanıcı= async(req,res)=>{
