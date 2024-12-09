@@ -9,6 +9,16 @@ export default function Navbar() {
             <Link to="/">
                 <h1>Emre Şen Not Defteri</h1>
             </Link>
+            <nav>
+              <div>
+                <Link to="/login"> 
+                  Giriş Yap
+                </Link>
+                <Link to="/signup"> 
+                  Üye Ol
+                </Link>
+              </div>
+            </nav>
         </div>
     </header>
   )
