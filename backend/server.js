@@ -1,6 +1,7 @@
 const express = require('express')
 require("dotenv").config();
 const notRoute=require('./rootes/notlar')
+const kullaniciRoute=require('./rootes/kullanici')
 const mongoose=require('mongoose')
 
 const app=express();
@@ -27,6 +28,7 @@ mongoose.connect('mongodb://localhost/notes-db')
 
 app.use(express.json())
 app.use('/api/notlar',notRoute)
+app.use('/api/kullanici',kullaniciRoute)
 
 
 
