@@ -19,7 +19,7 @@ const kullaniciSema= new Sema({
 })
 
 
-kullaniciSema.static.signup=async function(email,parola){
+kullaniciSema.statics.signup=async function(email,parola){
 
     const kontrolKullanici=await this.findOne({email}) // burada this kullaniciSemayı temsil eder
     
