@@ -1,4 +1,4 @@
-
+const Kullanici= require('../models/kullaniciModel')
 
 const loginKullanıcı= async(req,res)=>{
     res.json({mesaj:'Login işlemi gerçekleştirildi'})
