@@ -1,8 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useLogout } from '../hooks/useLogout'
 
 
 export default function Navbar() {
+
+  const {logout}= useLogout()
+
+  const handleClick=()=>{
+      logout()
+  }
+
   return (
     <header>
         <div className='container'>
@@ -10,6 +18,9 @@ export default function Navbar() {
                 <h1>Emre Şen Not Defteri</h1>
             </Link>
             <nav>
+              <div>
+                <button onClick={handleClick}>Çıkış</button>
+              </div>
               <div>
                 <Link to="/login"> 
                   Giriş Yap
