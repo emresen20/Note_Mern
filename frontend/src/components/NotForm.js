@@ -54,7 +54,7 @@ export default function NotForm() {
         <div>
           <label>Not Baslik:</label>
           <input
-            className={bosAlanlar.includes('baslik')? 'error' : ''}
+            className={(bosAlanlar || []).includes('baslik') ? 'error' : ''}
             type="text"
             onChange={(e) => setBaslik(e.target.value)}
             value={baslik}

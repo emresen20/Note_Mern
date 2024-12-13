@@ -172,3 +172,21 @@ form.signup, form.login {
   background: #fff;
   border-radius: 4px;
 }
+
+
+.password-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input input {
+  flex: 1;
+}
+
+.toggle-password-icon {
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 1.2em;
+  user-select: none;
+}

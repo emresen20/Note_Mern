@@ -19,7 +19,8 @@ const notOlustur=async (req,res)=>{
         }
 
     try{
-        const not =await NotModel.create({baslik,aciklama})
+        const kullanici_id=req.kullanici._id;
+        const not =await NotModel.create({baslik,aciklama,kullanici_id})
         res.status(200).json(not)
     } catch(error){
         res.status(400).json({hata:error.message})
@@ -28,7 +29,8 @@ const notOlustur=async (req,res)=>{
 
 //tüm notları getirien 
 const notlarGetir= async(req,res)=>{
-    const notlar= await NotModel.find().sort({
+    const kullanici_id=req.kullanici._id
+    const notlar= await NotModel.find({kullanici_id}).sort({
         createdAt:-1
     })
 

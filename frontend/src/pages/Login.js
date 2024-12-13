@@ -1,30 +1,73 @@
-import React, { useState } from 'react'
-import { useLogin } from '../hooks/useLogin'
+import React, { useState } from 'react';
+import { useLogin } from '../hooks/useLogin';
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [parola, setParola] = useState('');
+  const [confirmParola, setConfirmParola] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
-    const [email,setEmail]=useState('')
-    const [parola,setParola]=useState('')
+  const { login, loading, hata } = useLogin();
 
-    const {login,loading,hata}= useLogin();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-
-    const handleSumbit=async(e)=> {
-        e.preventDefault();
-        await login(email,parola)
+    if (parola !== confirmParola) {
+      alert('Parolalar eşleşmiyor!');
+      return;
     }
 
-  return (
-    <form className='signup' onSubmit={handleSumbit}>
-        <h3>Giriş Yap</h3>
-        <label>Email:</label>
-        <input type='email' onChange={(e)=>setEmail(e.target.value)}/>
+    await login(email, parola);
+  };
 
-        <label>Parola:</label>
-        <input type='password' onChange={(e)=>setParola(e.target.value)}/>
-        
-        <button disabled={loading} type='sumbit'> Giriş</button>
-        {hata && <div className='error'>{hata}</div>}
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  return (
+    <form className='signup' onSubmit={handleSubmit}>
+      <h3>Giriş Yap</h3>
+      <label>Email:</label>
+      <input
+        type='email'
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+
+      <label>Parola:</label>
+      <div className='password-input'>
+        <input
+          type={showPassword ? 'text' : 'password'}
+          value={parola}
+          onChange={(e) => setParola(e.target.value)}
+        />
+        <span
+          onClick={togglePasswordVisibility}
+          className='toggle-password-icon'
+        >
+          {showPassword ? '👁️' : '👁️‍🗨️'}
+        </span>
+      </div>
+
+      <label>Parola (Tekrar):</label>
+      <div className='password-input'>
+        <input
+          type={showPassword ? 'text' : 'password'}
+          value={confirmParola}
+          onChange={(e) => setConfirmParola(e.target.value)}
+        />
+        <span
+          onClick={togglePasswordVisibility}
+          className='toggle-password-icon'
+        >
+          {showPassword ? '👁️' : '👁️‍🗨️'}
+        </span>
+      </div>
+
+      <button disabled={loading} type='submit'>
+        Giriş
+      </button>
+      {hata && <div className='error'>{hata}</div>}
     </form>
-  )
+  );
 }
