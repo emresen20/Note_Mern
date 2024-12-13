@@ -1,11 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useLogout } from '../hooks/useLogout'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 
 export default function Navbar() {
 
   const {logout}= useLogout()
+  const {kullanici}=useAuthContext()
 
   const handleClick=()=>{
       logout()
@@ -18,17 +20,24 @@ export default function Navbar() {
                 <h1>Emre Şen Not Defteri</h1>
             </Link>
             <nav>
-              <div>
-                <button onClick={handleClick}>Çıkış</button>
-              </div>
-              <div>
-                <Link to="/login"> 
-                  Giriş Yap
-                </Link>
-                <Link to="/signup"> 
-                  Üye Ol
-                </Link>
-              </div>
+              {kullanici &&(
+                   <div>
+                    <span>{kullanici.email}</span> &nbsp;
+                   <button onClick={handleClick}>Çıkış</button>
+                 </div>
+              )}
+           
+              {!kullanici &&(
+                           <div>
+                           <Link to="/login"> 
+                             Giriş Yap
+                           </Link>
+                           <Link to="/signup"> 
+                             Üye Ol
+                           </Link>
+                         </div>
+              )}
+     
             </nav>
         </div>
     </header>
