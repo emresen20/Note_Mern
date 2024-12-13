@@ -2,15 +2,24 @@ import React, { useEffect} from 'react';
 import NotDetay from '../components/NotDetay';
 import NotForm from '../components/NotForm';
 import { useNotcontext } from '../hooks/useNotContext';
+import { useAuthContext } from '../hooks/useAuthContext';
+
 
 export default function Home() {
     //const [notlar, setNotlar] = useState([]);
     const {notlar,dispatch}=useNotcontext();
+    const {kullanici}=useAuthContext();
+
+
 
     useEffect(() => {
         const fetchNotlar = async () => {
             try {
-                const response = await fetch('/api/notlar'); // burası önemli packetjsona proxi ekledi
+                const response = await fetch('/api/notlar',{
+                    headers:{
+                        'Authorization':`Bearer ${kullanici.token}`
+                    }
+                }); // burası önemli packetjsona proxi ekledi
                
                 const json = await response.json();
                 console.log(json)
@@ -25,8 +34,11 @@ export default function Home() {
             }
         };
 
-        fetchNotlar();
-    }, [dispatch]);
+        if(kullanici){
+            fetchNotlar();
+        }
+        
+    }, [dispatch,kullanici]);
 
     return (
         <div className="home">

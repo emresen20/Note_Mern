@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNotcontext } from "../hooks/useNotContext";
+import { useAuthContext } from "../hooks/useAuthContext";
+
 
 
 export default function NotForm() {
@@ -7,18 +9,25 @@ export default function NotForm() {
   const [aciklama, setAciklama] = useState("");
   const [hata,setHata]=useState(null);
   const [bosAlanlar,setBosalanlar]=useState([]);
+  
 
   const {dispatch}=useNotcontext();
+  const {kullanici}=useAuthContext();
 
 
   const handleSumbit = async (e) => {
     e.preventDefault();
+    if(!kullanici){
+      setHata('Giriş yapmalısınız');
+      return
+    }
     const not = { baslik, aciklama };
     const response= await fetch('/api/notlar',{
         method:'POST',
         body:JSON.stringify(not),
         headers:{
-            'Content-Type':'application/json'
+            'Content-Type':'application/json',
+            'Authorization': `Bearer ${kullanici.token}`
         }
     })
     const json =await response.json()

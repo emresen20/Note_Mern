@@ -1,8 +1,11 @@
 const express =require('express')
 const notModel=require('../models/noteModel');
 const { notOlustur, notlarGetir, notGetir, notSil, notGuncelle } = require('../controllers/notController');
+const authKonrol=require('../middlewares/authKontrol')
 
 const router =express.Router();
+
+router.use(authKonrol)
 
 router.get('/',notlarGetir)
 
